@@ -1,0 +1,82 @@
+<form enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  {% for campo in formulario %}
+
+  {% if campo.label == 'Producto' %}
+  <div class="mb-3">
+  <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+   <select name="{{ campo.name }}" id="{{ campo.auto_id }}" class="form-control" readonly>
+    {% for opcion in campo.field.choices %}
+    <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>
+      {{ opcion.1 }}
+    </option>
+    {% endfor %}
+  </select>
+
+  {% else %}
+
+  {% if campo.label == 'Estado'  %}
+      <div class="mb-3">
+        <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+        <select class="form-control" name="{{ campo.name }}" id="{{ campo.auto_id }}">
+          {% for opcion in campo.field.choices %}
+            <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>
+              {{ opcion.1 }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    {% else %}
+    {% if campo.label == 'Factura' %}
+    
+      <div class="mb-3">
+        <label for="{{ campo.auto_id }}" class="form-label">Folio factura: {{ folio }}</label>
+        <input
+          type="{{ campo.field.widget.input_type }}"
+          class="form-control"
+          name="{{ campo.name }}"
+          id="{{ campo.auto_id }}"
+          aria-describedby="helpId"
+          placeholder="Folio factura: {{ folio }}"
+          value="{{ campo.value }}" readonly
+        >
+       {% else %}
+       
+
+      {% if campo.label == 'Fecha vencimiento' %}
+      <div class="mb-3">
+        <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+        <input
+            type="Date"
+            class="form-control"
+            name="{{ campo.name }}"
+            id="{{ campo.auto_id }}"
+            aria-describedby="helpId"
+            placeholder="{{ campo.label }}"
+            value="{{ campo.value | default_if_none:'' }}"
+          >
+      </div>
+      {% else %}
+
+        <div class="mb-3">
+          <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+          <input
+            type="{{ campo.field.widget.input_type }}"
+            class="form-control"
+            name="{{ campo.name }}"
+            id="{{ campo.auto_id }}"
+            aria-describedby="helpId"
+            placeholder="{{ campo.label }}"
+            value="{{ campo.value | default_if_none:'' }}"
+          >
+          {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+  {% endif %}
+    <div class="col-12 help-text">{{ campo.errors }}</div>
+  {% endfor %}
+
+  <input name="" id="" class="btn btn-success" type="submit" value="Guardar" href="#" role="button"></input>
+      <a name="" id="" class="btn btn-danger" href="{% url 'facturas' %}" role="button">Cancelar</a>
+    </form>

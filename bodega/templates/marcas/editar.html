@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar Marca {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">
+        Editar informacion de la Marca
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos de la Marca</h4>
+        {% include 'marcas/form.html' %}
+
+    </div>
+</div>
+
+{% endblock contenido %}

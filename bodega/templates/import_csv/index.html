@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Subir archivo .CSV con las ventas diarias {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header bg-warning">
+        <form method="POST" enctype="multipart/form-data" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name" class="col-md-3 colsm-3 col-xs-12 control-label">Seleccione el archivo con las ventas:</label>
+                <input class="form-control" id="csv_file" type="file" name="csv_file" required="True">
+            </div>
+            <div class="form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button class="btn btn-primary">
+                    <span class="glyphicon glyphicon-cloud-upload" style="margin-right:5px"></span>
+                    Subir
+                </button>
+                </div>
+            </div>
+        </form>  
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"></h4>
+        <div class="table-responsive">
+            <table class="table table-warning">
+                <thead>
+                    <tr>
+                        <th>Codigo de Barras</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if import_csvs %}
+
+                        {% for i_csv in import_csvs %}
+                    <tr>
+                        <td>{{ i_csv.codigo_barras }}</td>
+                        <td>{{ i_csv.nombre }}</td> 
+                        <td>{{ i_csv.cantidad }}</td> 
+                        <td>{{ i_csv.fecha }}</td>
+                    </tr>
+                    {% empty %}
+                    <li>No hay datos</li>
+                    {% endfor %}
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

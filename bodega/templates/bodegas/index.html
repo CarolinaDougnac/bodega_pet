@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de Bodegas {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_bodega' %}" role="button">Agregar nueva Bodega</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Bodegas</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bodega in bodegas %}
+                    <tr>
+                        <td>{{ bodega.id }}</td>
+                        <td>{{ bodega.nombre }}</td>
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_bodega' bodega.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_bodega' bodega.id %}" role="button">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

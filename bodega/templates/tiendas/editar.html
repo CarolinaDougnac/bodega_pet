@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar Tienda {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">
+        Editar informacion de la Tienda
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos de la Tienda</h4>
+        {% include 'tiendas/form.html' %}
+
+    </div>
+</div>
+
+{% endblock contenido %}

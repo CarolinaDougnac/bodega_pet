@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de Marcas {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_marca' %}" role="button">Agregar nueva Marca</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Marcas</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marca</th>
+                        <th>Proveedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for marca in marcas %}
+                    <tr>
+                        <td>{{ marca.id }}</td>
+                        <td> {{ marca.nombre_marca }}</td>
+                        <td>{{ marca.proveedor.nombre }}</td>
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_marca' marca.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_marca' marca.id %}" role="button">Borrar</a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

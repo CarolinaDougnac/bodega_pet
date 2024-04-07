@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Inicio {% endblock titulo %}
+
+{% block contenido %}
+
+
+
+
+
+
+<div class="row">
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+
+    <h1>Productos: </h1>
+
+    <div class="chart" id="chart2"> 
+  </div>
+  </div>
+
+  
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="row">
+    
+  <div class="card bg-danger">
+  <div class="card-body p-3">
+  <div class="row">
+  <div class="col-8">
+  <div class="numbers">
+  <p class="text-sm mb-0 text-capitalize font-weight-bold">Vencidos</p>
+  <h2 class="font-weight-bolder mb-0">
+  {{ productos_vencidos }}
+  </h2>
+  </div>
+  </div>
+  <div class="col-4 text-end">
+    <a href="{% url 'informes' %}" class="nav-link">
+    <div class="icon icon-shape text-center border-radius-md">
+      <i class="fa-solid fa-circle-exclamation fa-4x opacity-10" aria-hidden="true"></I>
+  </div>
+  </a>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+
+  <div class="card bg-yellow">
+  <div class="card-body p-3">
+  <div class="row">
+  <div class="col-8">
+  <div class="numbers">
+  <p class="text-sm mb-0 text-capitalize font-weight-bold">Por Vencer</p>
+  <h2 class="font-weight-bolder mb-0">
+    {{ productos_por_vencer }}
+  </h2>
+  </div>
+  </div>
+  <div class="col-4 text-end">
+    <a href="{% url 'informes' %}" class="nav-link">
+    <div class="icon icon-shape text-center border-radius-md">
+      <i class="fa-solid fa-circle-exclamation fa-4x opacity-10" aria-hidden="true"></i>
+  </div>
+  </a>
+  </div>
+  </div>
+  </div>
+  </div>
+
+    <div class="card bg-blue">
+    <div class="card-body p-3">
+    <div class="row">
+    <div class="col-8">
+    <div class="numbers">
+    <p class="text-sm mb-0 text-capitalize font-weight-bold">Stock Actual</p>
+    <h2 class="font-weight-bolder mb-0">
+    {{ total_cantidad_stock }}
+    </h2>
+    </div>
+    </div>
+    <div class="col-4 text-end">
+      <a href="{% url 'informes' %}" class="nav-link">
+      <div class="icon icon-shape text-center border-radius-md">
+        <i class="fa-solid fa-boxes-stacked fa-4x opacity-10" aria-hidden="true"></i>
+    </div>
+    </a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+
+    
+
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 mx-auto">
+      <h1>Venta Mensual: </h1>
+      <div class="chart" id="chart"></div>
+    </div>
+
+
+
+{% endblock contenido %}
+
+
+{% block extra_js %} 
+
+{% endblock extra_js %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Agregar Nueva ubicacion en la Tienda {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">
+        Agregar una nueva ubicacion en la Tienda
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Datos de la Tienda</h4>
+        {% include 'tiendas/form.html' %}
+
+    </div>
+</div>
+
+{% endblock contenido %}

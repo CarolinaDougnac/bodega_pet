@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar productos Ingresado al Inventario {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header">
+        Editar productos Ingresado al Inventario
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Productos Ingresado al Inventario</h4>
+        {% include 'ingresoProductos/form.html' %}
+
+    </div>
+</div>
+
+{% endblock contenido %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Productos en Stock {{ num_productos }} {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header bg-info">
+        <form id="actualizar-stock-form" method="POST" action="{% url 'actualizar_stock' %}">
+            {% csrf_token %}
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <a href="{% url 'informes' %}" class="btn btn-warning">(1) Revisar Estado de Vencimiento</a>
+                <!-- Agrega el botón "Actualizar Stock" dentro del formulario -->
+                <button id="iniciar-btn" class="btn btn-light">(2) Actualizar Stock</button>
+            </div>
+
+            <!-- Agrega el spinner dentro de un div, inicialmente oculto -->
+            <div id="spinner" class="d-none align-items-center">
+                <strong role="status">Actualizando el Stock...</strong>
+                <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+            </div>
+
+            <a id="exportar-btn" href="{% url 'export_csv' %}" class="btn btn-dark float-right d-none">(3) Exportar Stock</a>
+        </form>
+    </div>
+    
+    <div class="card-body">
+        <h4 class="card-title">En esta lista puede incluir productos Vencidos </h4>
+        <div class="table-responsive">
+            <table class="table table-info" id="stock-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Codigo de Barra</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                         
+                        {% for stock in stockProductos %}
+                    <tr>
+                        <td>{{ stock.id }}</td>
+                        <td>{{ stock.producto.codigo_barras }}</td> 
+                        <td>{{ stock.producto.nombre }}</td> 
+                        <td>{{ stock.cantidad }}</td>
+                        <td>{{ stock.precio }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+
+<script>
+    // Cuando se hace clic en el botón "Actualizar Stock"
+    document.getElementById('iniciar-btn').addEventListener('click', function(event) {
+        // Muestra el spinner y cambia el texto del botón
+        document.getElementById('spinner').classList.remove('d-none');
+        document.getElementById('iniciar-btn').textContent = 'Actualizando Stock...';
+        // Deshabilita el botón para evitar clics repetidos
+        this.disabled = true;
+        // Envía el formulario
+        document.getElementById('actualizar-stock-form').submit();
+    });
+
+    // Verifica si hay filas en la tabla de stock
+    var tableRows = document.getElementById('stock-table').getElementsByTagName('tr');
+    if (tableRows.length > 1) {
+        // Si hay más de una fila (ignorando la fila de encabezados), muestra el botón "Exportar Stock"
+        document.getElementById('exportar-btn').classList.remove('d-none');
+    }
+</script>
+    
+
+
+  
+  
+{% endblock contenido %}

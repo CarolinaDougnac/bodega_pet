@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Estados de la Factura {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_estadoFactura' %}" role="button">Agregar nuevo Estado de la Factura</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Estados de la Factura</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for estadoFactura in estadoFacturas %}
+                    <tr>
+                        <td>{{ estadoFactura.id }}</td>
+                        <td>{{ estadoFactura.estado }}</td>
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_estadoFactura' estadoFactura.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_estadoFactura' estadoFactura.id %}" role="button">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

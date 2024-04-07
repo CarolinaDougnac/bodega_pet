@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar productos Ingresado al Inventario {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header bg-success">
+        Editar: {{ingresoProducto.producto}}
+    </div>
+    <div class="card-body">
+        {% include 'ingresoProductos_f/form_editar.html' %}
+
+    </div>
+</div>
+
+
+{% endblock contenido %}

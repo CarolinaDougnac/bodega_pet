@@ -1,0 +1,68 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{% block titulo %}  {% endblock titulo %}</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <!-- Tus estilos personalizados -->
+  <style>
+    .row-pastel1 {
+        background-color: #f9f9f9; /* Color pastel 1 */
+    }
+
+    .row-pastel2 {
+        background-color: #e9e9e9; /* Color pastel 2 */
+    }
+    </style>
+  
+</head>
+
+<body>
+    <nav class="navbar navbar-expand navbar-light bg-light">
+        <div class="nav navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'inicio' %}" aria-current="page">Inicio</a>
+            <a class="nav-item nav-link active" href="{% url 'nosotros' %}" aria-current="page">Nosotros</a>
+            <a class="nav-item nav-link active" href="{% url 'proveedores' %}" aria-current="page">Proveedores</a>
+            <a class="nav-item nav-link active" href="{% url 'bodegas' %}" aria-current="page">Bodegas</a>
+            <a class="nav-item nav-link active" href="{% url 'tiendas' %}" aria-current="page">Tiendas</a>
+            <a class="nav-item nav-link active" href="{% url 'marcas' %}" aria-current="page">Marcas</a>
+            <a class="nav-item nav-link active" href="{% url 'productos' %}" aria-current="page">Productos</a>
+            <a class="nav-item nav-link active" href="{% url 'estadoProductos' %}" aria-current="page">Estados de Producto</a>
+            <a class="nav-item nav-link active" href="{% url 'facturas' %}" aria-current="page">Facturas</a>
+            <a class="nav-item nav-link active" href="{% url 'estadoFacturas' %}" aria-current="page">Estados de Factura</a>
+            <a class="nav-item nav-link active" href="{% url 'ingresoProductos' %}" aria-current="page">Ingreso de Productos</a>
+            <a class="nav-item nav-link active" href="{% url 'stockProductos' %}" aria-current="page">Stock</a>
+            <a class="nav-item nav-link active" href="{% url 'informes' %}" aria-current="page">Informes</a>
+            <a class="nav-item nav-link active" href="{% url 'buscarProductos' %}" aria-current="page">Buscar Productos</a>
+            <a class="nav-item nav-link active" href="{% url 'export_csv' %}" aria-current="page">Exportar Stock</a>
+            <a class="nav-item nav-link active" href="{% url 'import_csv' %}" aria-current="page">Venta Diaria</a>
+        </div>
+    </nav>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% block contenido %}  {% endblock contenido %}
+        </div>
+    </div>
+  </div>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>

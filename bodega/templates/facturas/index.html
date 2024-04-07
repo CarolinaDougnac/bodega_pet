@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de Facturas {% endblock titulo %}
+
+{% block contenido %}
+    <a name="" id="" class="btn btn-success" href="{% url 'crear_factura' %}" role="button">Crear nueva Factura</a>
+</div> </div>
+
+<div class="card">
+    <div class="card-header bg-warning">
+        <h4 class="card-title">Facturas Pendientes</h4>
+     </div>
+    <div class="card-body">
+        
+        <div class="table-responsive">
+            <table class="table table-success">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Folio</th>
+                        <th>Proveedor</th>
+                        <th>Estado</th>
+                        <th>Fecha de Emision</th>
+                        <th>Fecha de Recepcion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas_pendientes %}
+                     
+                    <tr>
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.folio }}</td>
+                        <td>{{ factura.proveedor.nombre }}</td>
+                        <td>{{ factura.estado.estado }}
+                            <form action="{% url 'cambiar_estado_factura' factura.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-secondary btn-sm">Cambiar</button>
+                            </form>
+                        </td>
+                        <td>{{ factura.fecha_emision }}</td>
+                        <td>{{ factura.fecha_recepcion }}</td>
+                        <td><a name="" id="" class="btn btn-danger" href="{% url 'eliminar_factura' factura.id %}" role="button">Borrar</a>
+                            <a name="" id="" class="btn btn-success" href="{% url 'crear_ingresoProducto_f' factura.id %}" role="button">+ Productos</a>
+                            <a name="" id="" class="btn btn-info" href="{% url 'editar_factura' factura.id %}" role="button">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+
+<div class="card">
+    <div class="card-header bg-blue">
+        <h4 class="card-title">Facturas Ingresadas</h4>
+    </div>
+    <div class="card-body">
+        
+        <div class="table-responsive">
+            <table class="table table-success">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Folio</th>
+                        <th>Proveedor</th>
+                        <th>Estado</th>
+                        <th>Fecha de Emision</th>
+                        <th>Fecha de Recepcion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas_ingresadas %}
+                     
+                    <tr>
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.folio }}</td>
+                        <td>{{ factura.proveedor.nombre }}</td>
+                        <td>{{ factura.estado.estado }}
+                            <form action="{% url 'cambiar_estado_factura' factura.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-secondary btn-sm">Cambiar</button>
+                            </form>
+                        </td>
+                        <td>{{ factura.fecha_emision }}</td>
+                        <td>{{ factura.fecha_recepcion }}</td>
+                        <td><a name="" id="" class="btn btn-danger" href="{% url 'eliminar_factura' factura.id %}" role="button">Borrar</a>
+                            <a name="" id="" class="btn btn-success" href="{% url 'crear_ingresoProducto_f' factura.id %}" role="button">+ Productos</a>
+                            <a name="" id="" class="btn btn-info" href="{% url 'editar_factura' factura.id %}" role="button">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+  
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="edicion" role="dialog">
+</div>
+
+{% endblock contenido %}
+
+{% block extra_js %} 
+
+  <script type="text/javascript">
+    function abrir_modal_edicion(url){
+        $('#edicion').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+  </script>
+
+{% endblock extra_js %}

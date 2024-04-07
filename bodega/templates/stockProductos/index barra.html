@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Productos en Stock {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header bg-info">
+        <form id="actualizar-stock-form" method="POST" action="{% url 'actualizar_stock' %}">
+            {% csrf_token %}
+
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <a href="{% url 'informes' %}" class="btn btn-warning ">(1) Revisar Estado de Vencimiento</a>
+
+                <button id="actualizar-stock-btn" type="submit" class="btn btn-light">(2) Actualizar Stock</button>
+            </div>
+
+                <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="{{ progreso }}" aria-valuemin="0" aria-valuemax="100">
+                    <div id="barra-progreso" class="progress-bar" style="width: 0%;">0%</div>
+                </div>
+
+            <a id="exportar-btn" href="{% url 'export_csv' %}" class="btn btn-dark float-right" disabled>(3) Exportar Stock</a>
+        </form> 
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">En esta lista puede incluir productos Vencidos </h4>
+
+        <div class="table-responsive">
+            <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Codigo de Barra</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in stockProductos %}
+                    <tr>
+                        <td>{{ stock.id }}</td>
+                        <td>{{ stock.producto.codigo_barras }}</td> 
+                        <td>{{ stock.producto.nombre }}</td> 
+                        <td>{{ stock.cantidad }}</td>
+                        <td>{{ stock.precio }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+
+<script>
+    // Función para actualizar el progreso de la barra y el texto de progreso
+    function actualizarProgreso(progreso) {
+        document.getElementById('barra-progreso').style.width = progreso + '%';
+        document.getElementById('barra-progreso').innerText = progreso + '%';
+        document.getElementById('progreso').innerText = progreso + '%';
+    }
+
+    // Escuchar el envío del formulario de actualización de stock
+    document.getElementById('actualizar-stock-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar que el formulario se envíe normalmente
+
+        // Realizar una solicitud AJAX para actualizar el progreso
+        fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Actualizar el progreso con el valor devuelto por la vista
+            actualizarProgreso(data.progreso);
+
+            // Si el progreso es 100%, habilitar el botón de exportar
+            if (data.progreso === 100) {
+                document.getElementById('exportar-btn').removeAttribute('disabled');
+            }
+
+            // Volver a habilitar el botón de actualizar stock
+            document.getElementById('actualizar-stock-btn').removeAttribute('disabled');
+        });
+
+        // Deshabilitar el botón de actualizar stock para evitar múltiples envíos
+        document.getElementById('actualizar-stock-btn').setAttribute('disabled', 'disabled');
+    });
+</script>
+
+{% endblock contenido %}
+

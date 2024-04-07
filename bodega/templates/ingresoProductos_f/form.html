@@ -1,0 +1,99 @@
+<form enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  <div class="card bg-info mb-3">
+    <div class="card-body">
+      {% for campo in formulario %}
+        
+        {% if campo.label == 'Producto' %}
+          <label class="form-label">Producto: {{ productoss.nombre }}</label>
+            <input type="hidden" name="{{ campo.name }}" value="{{ productoss.nombre }}">
+            <input type="hidden" name="{{ campo.name }}" value="{{ productoss.id }}">
+
+        {% else %}
+
+          {% if campo.label == 'Factura' %}
+            <input type="hidden" name="{{ campo.name }}" value="{{id_factura}}">
+          {% endif %}
+      
+        {% endif %}
+
+      {% endfor %}
+    </div>
+  </div>
+
+  
+  <div class="card bg-light mb-3">
+    <div class="card-body">
+  {% for campo in formulario %}
+    {% if campo.label != 'Producto' and campo.label != 'Factura' %}
+
+    <div class="mb-3">
+    {% if campo.label == 'Estado' %}
+      
+        <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+        <select class="form-control" name="{{ campo.name }}" id="{{ campo.auto_id }}">
+          {% for opcion in campo.field.choices %}
+            <option value="{{ opcion.0 }}" {% if opcion.0 == campo.value %}selected{% endif %}>
+              {{ opcion.1 }}
+            </option>
+          {% endfor %}
+        </select>
+    {% else %}
+    {% if campo.label == 'Factura' %}
+
+    <input type="hidden" name="{{ campo.name }}" value="{{id_factura}}">
+      <div class="mb-3">
+        <label class="form-label">Factura:</label>
+        <span>{{id_factura}} - {{ folio }}</span>
+      </div>
+    
+      <div class="mb-3">
+        
+         
+       {% else %}
+       
+
+      {% if campo.label == 'Fecha vencimiento' %}
+      <div class="mb-3">
+        <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+        <input
+            type="Date"
+            class="form-control"
+            name="{{ campo.name }}"
+            id="{{ campo.auto_id }}"
+            aria-describedby="helpId"
+            placeholder="{{ campo.label }}"
+            value="{{ campo.value | default_if_none:'' }}"
+          >
+      </div>
+      {% else %}
+
+        <div class="mb-3">
+          <label for="{{ campo.auto_id }}" class="form-label">{{ campo.label }}</label>
+          <input
+            type="{{ campo.field.widget.input_type }}"
+            class="form-control"
+            name="{{ campo.name }}"
+            id="{{ campo.auto_id }}"
+            aria-describedby="helpId"
+            placeholder="{{ campo.label }}"
+            value="{{ campo.value | default_if_none:'' }}"
+          >
+          {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+  {% endif %}
+    <div class="col-12 help-text">{{ campo.errors }}</div>
+  {% endfor %}
+</div>
+</div>
+
+  <input name="" id="" class="btn btn-success" type="submit" value="Guardar" href="#" role="button"></input>
+      <a name="" id="" class="btn btn-danger" href="{% url 'facturas' %}" role="button">Cancelar</a>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div></div>

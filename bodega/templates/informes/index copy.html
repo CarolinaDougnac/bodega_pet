@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Informe estado productos {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Informe Estado Productos</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Folio de Factura</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Estado</th>
+                        <th>Precio Compra</th>
+                        <th>Precio Venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingresoProducto in ingresoProductos %}
+                    
+                    <tr> 
+                        <td>{{  ingresoProducto.id }}</td>
+                        <td>{{  ingresoProducto.producto }}</td>
+                        <td>{{  ingresoProducto.factura }}</td>
+                        <td>{{  ingresoProducto.cantidad }}</td>
+                        <td>{{  ingresoProducto.fecha_vencimiento }}</td>
+                        <td>{{  ingresoProducto.estado }}</td>
+                        <td>{{  ingresoProducto.precio_compra }}</td>
+                        <td>{{  ingresoProducto.precio_venta }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}
+
+{% block extra_js %} 
+
+{% endblock extra_js %}

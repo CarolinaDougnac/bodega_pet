@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de Facturas {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_factura' %}" role="button">Crear nueva Factura</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Facturas</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Folio</th>
+                        <th>Proveedor</th>
+                        <th>Estado</th>
+                        <th>Fecha de Emision</th>
+                        <th>Fecha de Recepcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                     
+                    <tr>
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.folio }}</td>
+                        <td>{{ factura.proveedor.nombre }}</td>
+                        <td>{{ factura.estado.estado }}</td>
+                        <td>{{ factura.fecha_emision }}</td>
+                        <td>{{ factura.fecha_recepcion }}</td>
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_factura' factura.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_factura' factura.id %}" role="button">Borrar</a>
+                            <a name="" id="" class="btn btn-success" href="{% url 'crear_ingresoProducto_f' factura.id %}" role="button">Agregar Producto</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

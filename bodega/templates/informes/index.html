@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Informe del estado de los productos en stock {% endblock titulo %}
+
+{% block contenido %} 
+
+
+<div class="card">
+    <div class="card-header bg-danger">
+        <h4 class="card-title">Productos Vencidos</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form method="post" action="{% url 'sacar_del_inventario' %}" autocomplete="off">
+                {% csrf_token %}
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Folio de Factura</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ingreso in ingresos_vencidos %}
+                        <tr>
+                            <td>{{ ingreso.producto }}</td>
+                            <td>{{ ingreso.factura }}</td>
+                            <td>{{ ingreso.cantidad_restante }}</td>
+                            <td>{{ ingreso.fecha_vencimiento }}</td>
+                            <td>{{ ingreso.estado }}</td>
+                            <td> 
+                                <a href="#" class="btn btn-danger" onclick="return confirmarAccion({{ ingreso.id }}, {{ ingreso.producto_id }}, '{{ ingreso.producto }}', {{ ingreso.cantidad_restante }}, '{{ ingreso.fecha_vencimiento }}')">Sacar del Stock</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <script>
+                        function confirmarAccion(ingresoId, productoId, nombreProducto, cantidad, fechaVencimiento) {
+                            var mensaje = '¿Estás seguro de que deseas sacar este producto del inventario?\n';
+                            mensaje +=  '\n';
+                            mensaje +=  nombreProducto + '\n';
+                            mensaje += 'Cantidad: ' + cantidad + '\n';
+                            mensaje += 'Fecha de vencimiento: ' + fechaVencimiento + '\n';
+                            mensaje +=  '\n *** ¡esta acción NO es reversible! *** \n';
+
+                            if (confirm(mensaje)) {
+                                var url = "{% url 'sacar_del_inventario' %}?ingreso_id=" + ingresoId + "&producto_id=" + productoId;
+                                window.location.href = url;
+                                return false;
+                            } else {
+                                return false;
+                            }
+                        }
+                        </script>
+                    </tbody>
+                </table>
+            </form>
+            
+            
+        </div>
+        
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-warning">
+        <h4 class="card-title">Productos Por Vencer</h4>
+    </div>
+    <div class="card-body">
+        
+        <div class="table-responsive">
+            <form method="post" action="{% url 'sacar_del_inventario' %}">
+                {% csrf_token %}
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Folio de Factura</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingreso in ingresos_por_vencer %}
+                    
+                    <tr> 
+                        <td>{{  ingreso.producto }}</td>
+                        <td>{{  ingreso.factura }}</td>
+                        <td>{{  ingreso.cantidad_restante }}</td>
+                        <td>{{  ingreso.fecha_vencimiento }}</td>
+                        <td>{{  ingreso.estado }}</td>
+                        <td> 
+                            <a href="#" class="btn btn-warning" onclick="return confirmarAccion({{ ingreso.id }}, {{ ingreso.producto_id }}, '{{ ingreso.producto }}', {{ ingreso.cantidad_restante }}, '{{ ingreso.fecha_vencimiento }}')">Sacar del Stock</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+        </div>
+        
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-blue">
+        <h4 class="card-title">Productos OK</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Folio de Factura</th>
+                            <th>Cantidad</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ingreso in ingresos_ok %}
+                        <tr>
+                            <td>{{ ingreso.producto }}</td>
+                            <td>{{ ingreso.factura }}</td>
+                            <td>{{ ingreso.cantidad_restante }}</td>
+                            <td>{{ ingreso.fecha_vencimiento }}</td>
+                            <td>{{ ingreso.estado }}</td>
+                            <td>---------------------------------</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            
+            
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock contenido %}
+
+{% block extra_js %} 
+
+{% endblock extra_js %}

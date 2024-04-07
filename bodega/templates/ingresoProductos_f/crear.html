@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+<h1>hola</h1>
+{% block titulo %} Agregar productos a la Factura: {{ folio }} {% endblock titulo %}
+
+{% block contenido %} 
+
+
+
+<!-- Aquí va el formulario y otros elementos de la página -->
+
+<div class="card">
+    <div class="card-header bg-success">
+        <h4 class="card-title">BUSCAR producto por Codigo de Barra:</h4>
+        <hr>
+        <!- Boton BUSCAR ->
+                <div class="input-group mb-3">
+                    <form action="{% url 'crear_ingresoProducto_f' id_factura %}" method="GET">
+                        <input type="text" name="q" placeholder="Código de Barra">
+                        <input type="hidden" name="{{id_factura}}" >
+                        <button type="submit">Buscar</button>
+                    </form>
+                  
+                </div>
+        <!- Boton BUSCAR ->
+    </div>
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+{% endif %}
+    
+    <div class="card-body">
+
+        {% include 'ingresoProductos_f/form.html' %}
+        
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-dark">
+        <h4 class="card-title">Tabla con Productos ingresado a la factura : {{ folio }} </h4>
+    </div>
+    <div class="card-body">
+        
+        <div class="table-responsive" id="id_tabla_productos_factura" >
+            <table class="table table-success">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Folio de Factura</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Estado</th>
+                        <th>Precio Compra</th>
+                        <th>Precio Venta</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingresoProducto in ingresoProductos %}
+                    {% if ingresoProducto.factura.id == id_factura  %}
+                    <tr>
+                        <td>{{  ingresoProducto.id }}</td>
+                        <td>{{  ingresoProducto.producto }}</td>
+                        <td>{{  ingresoProducto.factura }}</td>
+                        <td>{{  ingresoProducto.cantidad }}</td>
+                        <td>{{  ingresoProducto.fecha_vencimiento }}</td>
+                        <td>{{  ingresoProducto.estado }}</td>
+                        <td>{{  ingresoProducto.precio_compra }}</td>
+                        <td>{{  ingresoProducto.precio_venta }}</td>
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_ingresoProducto_f' ingresoProducto.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_ingresoProducto_f' ingresoProducto.id %}" role="button">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+
+
+
+
+
+
+
+
+{% endblock contenido %}
+

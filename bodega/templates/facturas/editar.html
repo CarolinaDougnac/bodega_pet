@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Editar Factura {% endblock titulo %}
+
+{% block contenido %} 
+
+<div class="card">
+    <div class="card-header bg-success">
+        Editar informacion de la Factura
+    </div>
+    <div class="card-body">
+        {% include 'facturas/form.html' %}
+
+    </div>
+</div>
+
+{% endblock contenido %}

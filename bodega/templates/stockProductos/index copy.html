@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Productos en Stock {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <form method="POST" action="{% url 'actualizar_stock' %}">
+            {% csrf_token %}
+
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="submit" class="btn btn-success">Actualizar Stock</button>
+            
+            <a href="{% url 'export_csv' %}" class="btn btn-primary float-right">Exportar Stock</a>
+            </div>
+        </form>          
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">En esta lista puede incluir productos Vencidos </h4>
+        <a href="{% url 'informes' %}" class="btn btn-warning float-right">Revisar Estado de Vencimiento</a>
+        <div class="table-responsive">
+            <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Codigo de Barra</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                         
+                        {% for stock in stockProductos %}
+                    <tr>
+                        <td>{{ stock.id }}</td>
+                        <td>{{ stock.producto.codigo_barras }}</td> 
+                        <td>{{ stock.producto.nombre }}</td> 
+                        <td>{{ stock.cantidad }}</td>
+                        <td>{{ stock.precio }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

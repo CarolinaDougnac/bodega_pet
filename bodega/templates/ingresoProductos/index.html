@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de productos ingresados al inventario {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_ingresoProducto' %}" role="button">Ingresa un Producto al Stock</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Ingreso de Productos al Inventario</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Folio de Factura</th>
+                        <th>Cantidad</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Estado</th>
+                        <th>Precio Compra</th>
+                        <th>Precio Venta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingresoProducto in ingresoProductos %}
+                            <tr>
+                                <td>{{  ingresoProducto.id }}</td>
+                               <td>{{  ingresoProducto.producto }}</td>
+                               <td>{{  ingresoProducto.factura }}</td>
+                                <td>{{  ingresoProducto.cantidad }}</td>
+                                <td>{{  ingresoProducto.fecha_vencimiento }}</td>
+                                <td>{{  ingresoProducto.estado }}</td>
+                                <td>{{  ingresoProducto.precio_compra }}</td>
+                                <td>{{  ingresoProducto.precio_venta }}</td>
+                               <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_ingresoProducto' ingresoProducto.id %}" role="button">Editar</a> 
+                                    <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_ingresoProducto' ingresoProducto.id %}" role="button">Borrar</a></td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}

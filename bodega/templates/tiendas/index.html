@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de ubicaciones en la Tienda {% endblock titulo %}
+
+{% block contenido %} 
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear_tienda' %}" role="button">Agregar nueva ubicacion Tienda</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Tiendas</h4>
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                         
+                        {% for tienda in tiendas%}
+                    <tr>
+                        <td>{{ tienda.id }}</td>
+                        <td>{{ tienda.posicion }}</td> 
+                        <td> <a name="" id="" class="btn btn-info" href="{% url 'editar_tienda' tienda.id %}" role="button">Editar</a> 
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_tienda' tienda.id %}" role="button">Borrar</a></td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div> 
+{% endblock contenido %}
